@@ -75,6 +75,8 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5)
             this.gameOver = true
         }, null, this)
+
+        this.clockText = this.add.text(game.config.width / 2, borderUISize + borderPadding*2, 'Time: ' + (this.clock.getElapsed() / 100), highScoreConfig)
     }
 
     update() {
@@ -97,6 +99,11 @@ class Play extends Phaser.Scene {
             this.ship01.update()
             this.ship02.update()
             this.ship03.update()
+
+            
+
+            //display clock
+            this.clockText.text = 'Time: ' + Math.trunc((game.settings.gameTimer - (this.clock.getElapsed())) / 1000)
             
             //update high score if applicable
             if(this.p1Score > this.highScore) {
@@ -153,7 +160,17 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.points
         this.scoreLeft.text = this.p1Score
 
-        //explosion sound
-        this.sound.play('sfx-explosion')
+        // random explosion sound
+        let random = Math.random(); // Use Math.random() to get a float between 0 and 1
+
+        if (random < 0.25) {
+            this.sound.play('explosion1');
+        } else if (random < 0.5) {
+            this.sound.play('explosion2');
+        } else if (random < 0.75) {
+            this.sound.play('explosion3');
+        } else {
+            this.sound.play('explosion4');
+    }
     }
 }

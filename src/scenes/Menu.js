@@ -15,6 +15,13 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
         this.load.audio('sfx-shot', './assets/sfx-shot.wav')
         this.load.audio('gameMusic', './assets/gameMusic.m4a')
+        this.load.audio('explosion1', './assets/Explosion 1.wav')
+        this.load.audio('explosion2', './assets/Explosion 3.wav')
+        this.load.audio('explosion3', './assets/Explosion 5.wav')
+        this.load.audio('explosion4', './assets/Explosion 8.wav')
+        this.load.audio('laserShoot', './assets/Laser_shoot 15.wav')
+
+
 
         //load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {
@@ -65,8 +72,15 @@ class Menu extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
 
         //play background music
-        this.backgroundMusic = this.sound.add('gameMusic', {loop: true})
-        this.backgroundMusic.play()
+        
+        if(!musicPlaying){
+            this.backgroundMusic = this.sound.add('gameMusic', {loop: true})
+            //this.backgroundMusic.play()
+
+            musicPlaying = true
+        }
+        
+        
 
     }
 
