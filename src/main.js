@@ -30,3 +30,6 @@ let musicPlaying = false
 // - Display the time remaining (in seconds) on the screen (3)
 // - random explosion sound for each hit (3)
 // - new rocket fire sound(1)
+// - Create a new enemy Spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (5)
+// - Implement parallax scrolling for the background (3)
+// 20 points total

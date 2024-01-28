@@ -5,16 +5,11 @@ class Play extends Phaser.Scene {
 
     create() {
         //place tile sprites
-        this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield-new').setOrigin(0, 0)
+        this.starfield = this.add.tileSprite(0, 0, 700, 500, 'starfield-new').setOrigin(0, 0)
+        this.parallax = this.add.tileSprite(0, 0, 700, 500, 'starfield-parallax').setOrigin(0, 0)
 
         //green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0,0)
-
-        //white borders
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0)
 
         //add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0)
@@ -23,6 +18,16 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0)
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0)
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0, 0)
+
+        // add speeder
+        this.speeder = new Speeder(this, game.config.width /2, game.config.height / 2 + 100, 'speeder', 0, 50).setOrigin(0, 0)
+
+                //white borders
+                this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
+                this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
+                this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+                this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+
 
         //define keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -91,6 +96,7 @@ class Play extends Phaser.Scene {
         }
         
         this.starfield.tilePositionX -= 4
+        this.parallax.tilePositionX -= 2
         
         if(!this.gameOver) {
             //update rocket sprite
@@ -99,6 +105,8 @@ class Play extends Phaser.Scene {
             this.ship01.update()
             this.ship02.update()
             this.ship03.update()
+            //update spaceship
+            this.speeder.update()
 
             
 
@@ -130,6 +138,11 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset()
             this.shipExplode(this.ship01)
+        }
+
+        if(this.checkCollision(this.p1Rocket, this.speeder)){
+            this.p1Rocket.reset()
+            this.shipExplode(this.speeder)
         }
     }
 

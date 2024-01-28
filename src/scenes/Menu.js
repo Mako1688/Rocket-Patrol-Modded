@@ -7,8 +7,10 @@ class Menu extends Phaser.Scene {
         //load image/tile sprites
         this.load.image('rocket', './assets/rocket.png')
         this.load.image('spaceship', './assets/spaceship.png')
+        this.load.image('speeder', './assets/Aestroid.png')
         this.load.image('starfield', './assets/starfield.png')
         this.load.image('starfield-new', './assets/starfield-new.png')
+        this.load.image('starfield-parallax', './assets/starfield parallax.png')
 
         //load audio
         this.load.audio('sfx-select', './assets/sfx-select.wav')
@@ -75,7 +77,7 @@ class Menu extends Phaser.Scene {
         
         if(!musicPlaying){
             this.backgroundMusic = this.sound.add('gameMusic', {loop: true})
-            //this.backgroundMusic.play()
+            this.backgroundMusic.play()
 
             musicPlaying = true
         }
