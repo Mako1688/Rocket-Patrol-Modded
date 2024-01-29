@@ -95,8 +95,8 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene")
         }
         
-        this.starfield.tilePositionX -= 4
-        this.parallax.tilePositionX -= 2
+        this.starfield.tilePositionX -= 1
+        this.parallax.tilePositionX -= 3
         
         if(!this.gameOver) {
             //update rocket sprite
