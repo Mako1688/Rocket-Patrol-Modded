@@ -8,25 +8,25 @@ class Play extends Phaser.Scene {
         this.starfield = this.add.tileSprite(0, 0, 700, 500, 'starfield-new').setOrigin(0, 0)
         this.parallax = this.add.tileSprite(0, 0, 700, 500, 'starfield-parallax').setOrigin(0, 0)
 
-        //green UI background
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0,0)
+        //Pink UI background
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0xFACADE).setOrigin(0,0)
 
         //add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0)
 
         //add spaceships (x3)
-        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0)
-        this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0)
-        this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0, 0)
+        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship-new', 0, 30).setOrigin(0, 0)
+        this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship-new', 0, 20).setOrigin(0,0)
+        this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship-new', 0, 10).setOrigin(0, 0)
 
         // add speeder
         this.speeder = new Speeder(this, game.config.width /2, game.config.height / 2 + 100, 'speeder', 0, 50).setOrigin(0, 0)
 
-                //white borders
-                this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
-                this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
-                this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-                this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+        //white borders
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0)
 
 
         //define keys
@@ -142,7 +142,7 @@ class Play extends Phaser.Scene {
 
         if(this.checkCollision(this.p1Rocket, this.speeder)){
             this.p1Rocket.reset()
-            this.shipExplode(this.speeder)
+            this.speederExplode(this.speeder)
         }
     }
 
@@ -185,5 +185,23 @@ class Play extends Phaser.Scene {
         } else {
             this.sound.play('explosion4');
     }
+    }
+
+    speederExplode(ship) {
+        //temporarily hide ship
+        ship.alpha = 0
+        //create explosion sprie at ship's position
+        let boom = this.add.sprite(ship.x, ship.y, 'spederExplosion').setOrigin(0, 0);
+        boom.anims.play('speederExplode')              //play explode animation
+        boom.on('animationcomplete', () => {    //callback after anim completes
+            ship.reset()                        //reset ship position
+            ship.alpha = 1                      //make ship visible again
+            boom.destroy()                      //remove explosion sprite
+        })
+        //score add and text update
+        this.p1Score += ship.points
+        this.scoreLeft.text = this.p1Score
+
+        this.sound.play('speederSound')
     }
 }

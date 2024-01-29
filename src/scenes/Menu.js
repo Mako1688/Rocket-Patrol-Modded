@@ -5,32 +5,41 @@ class Menu extends Phaser.Scene {
 
     preload() {
         //load image/tile sprites
-        this.load.image('rocket', './assets/rocket.png')
-        this.load.image('spaceship', './assets/spaceship.png')
-        this.load.image('speeder', './assets/Aestroid.png')
-        this.load.image('starfield', './assets/starfield.png')
-        this.load.image('starfield-new', './assets/starfield-new.png')
-        this.load.image('starfield-parallax', './assets/starfield parallax.png')
+        this.load.image('rocket', './assets/Sprites/newRocket.png')
+        this.load.image('spaceship', './assets/Sprites/spaceship.png')
+        this.load.image('speeder', './assets/Sprites/Aestroid.png')
+        this.load.image('starfield', './assets/Sprites/starfield.png')
+        this.load.image('starfield-new', './assets/Sprites/starfield-new.png')
+        this.load.image('starfield-parallax', './assets/Sprites/starfield parallax.png')
+        this.load.image('spaceship-new', './assets/Sprites/spaceshipNew.png')
 
         //load audio
-        this.load.audio('sfx-select', './assets/sfx-select.wav')
-        this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
-        this.load.audio('sfx-shot', './assets/sfx-shot.wav')
-        this.load.audio('gameMusic', './assets/gameMusic.m4a')
-        this.load.audio('explosion1', './assets/Explosion 1.wav')
-        this.load.audio('explosion2', './assets/Explosion 3.wav')
-        this.load.audio('explosion3', './assets/Explosion 5.wav')
-        this.load.audio('explosion4', './assets/Explosion 8.wav')
-        this.load.audio('laserShoot', './assets/Laser_shoot 15.wav')
+        this.load.audio('sfx-select', './assets/Sounds/sfx-select.wav')
+        this.load.audio('sfx-explosion', './assets/Sounds/sfx-explosion.wav')
+        this.load.audio('sfx-shot', './assets/Sounds/sfx-shot.wav')
+        this.load.audio('gameMusic', './assets/Sounds/gameMusic.m4a')
+        this.load.audio('explosion1', './assets/Sounds/Explosion 1.wav')
+        this.load.audio('explosion2', './assets/Sounds/Explosion 3.wav')
+        this.load.audio('explosion3', './assets/Sounds/Explosion 5.wav')
+        this.load.audio('explosion4', './assets/Sounds/Explosion 8.wav')
+        this.load.audio('laserShoot', './assets/Sounds/Laser_shoot 15.wav')
+        this.load.audio('speederSound', './assets/Sounds/Pickup_coin 4.wav')
 
 
 
         //load spritesheet
-        this.load.spritesheet('explosion', './assets/explosion.png', {
-            frameWidth: 64,
+        this.load.spritesheet('explosion', './assets/SpriteSheets/ShipExplosion.png', {
+            frameWidth: 63,
             frameHeight: 32,
             startFrame:  0,
-            endFrames: 9
+            endFrames: 2
+        })
+
+        this.load.spritesheet('speederExplosion', './assets/SpriteSheets/AestroidSpriteSheet.png', {
+            frameWidth: 15,
+            frameHeight: 15,
+            startFrame: 0,
+            endFrames: 2
         })
     }
 
@@ -40,10 +49,20 @@ class Menu extends Phaser.Scene {
             key: 'explode',
             frames: this.anims.generateFrameNumbers('explosion', { 
                 start: 0, 
-                end: 9, 
+                end: 2, 
                 first: 0
             }),
-            frameRate: 30
+            frameRate: 15
+        })
+
+        this.anims.create({
+            key: 'speederExplode',
+            frames: this.anims.generateFrameNumbers('speederExplosion', {
+                start: 0,
+                end: 2,
+                first: 0
+            }),
+            frameRate: 15
         })
 
         let menuConfig = {
@@ -64,7 +83,7 @@ class Menu extends Phaser.Scene {
         menuConfig).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2, 'Use <-> arrows to move & (F) to fire', menuConfig).
         setOrigin(0.5)
-        menuConfig.backgroundColor = '#00FF00'
+        menuConfig.backgroundColor = '#FACADE'
         menuConfig.color = '#000'
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', 
         menuConfig).setOrigin(0.5)

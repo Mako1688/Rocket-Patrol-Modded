@@ -8,8 +8,6 @@ class Speeder extends Phaser.GameObjects.Sprite {
         if(random > 0.5) {
             this.moveSpeed = -(game.settings.spaceshipSpeed)          //spaceship speed in pixels/frame
         }
-
-        console.log('Speeder created')
     }
 
     update() {
@@ -18,11 +16,9 @@ class Speeder extends Phaser.GameObjects.Sprite {
         //wrap from left to right edge
         if(this.x <= 0 - this.width) {
             this.x = game.config.width
-            console.log('speeder has wrapped around screen')
         }
         if(this.x > game.config.width + 100) {
             this.x = 0
-            console.log('speeder has wrapped around screen')
         }
     }
 

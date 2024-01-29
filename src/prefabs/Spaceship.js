@@ -6,7 +6,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
         let random = Math.random()
         this.moveSpeed = game.settings.spaceshipSpeed          //spaceship speed in pixels/frame
         if(random > 0.5) {
-            this.moveSpeed = -(game.settings.spaceshipSpeed)          //spaceship speed in pixels/frame
+            this.moveSpeed = -(game.settings.spaceshipSpeed)   //spaceship speed in pixels/frame
         }
 
         
